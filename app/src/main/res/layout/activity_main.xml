@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.MainActivity">
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:elevation="30dp"
+        android:indeterminateTint="?attr/colorPrimary"
+        android:visibility="gone"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:src="?attr/colorPrimary"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/overview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="6dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginVertical="18dp">
+
+            <TextView
+                android:id="@+id/country"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:text="@string/indonesia"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country"
+                android:text="@string/total_confirmed"/>
+
+            <TextView
+                android:id="@+id/confirmed_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/country"
+                android:layout_alignParentEnd="true"
+                android:textStyle="bold"
+                tools:text="180290" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/confirmed_case"
+                android:layout_marginTop="12dp"
+                android:text="@string/total_death" />
+
+            <TextView
+                android:id="@+id/death_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/confirmed_case"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:textColor="@color/design_default_color_error"
+                tools:text="1290" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/death_case"
+                android:layout_marginTop="12dp"
+                android:text="@string/total_recovered" />
+
+            <TextView
+                android:id="@+id/recovery_case"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/death_case"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="12dp"
+                android:textStyle="bold"
+                android:textColor="@color/teal_200"
+                tools:text="20290" />
+
+        </RelativeLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/confirmed_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/overview"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="16dp"
+        android:text="@string/confirmed_cases"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/last_updated"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/confirmed_text"
+        android:text="@string/last_updated"
+        android:textSize="16sp"
+        android:layout_marginHorizontal="16dp"/>
+
+    <TextView
+        android:id="@+id/see_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/last_updated"
+        android:layout_alignBottom="@+id/last_updated"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="16dp"
+        android:text="@string/see_all" />
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_first"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/last_updated"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/first_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                tools:text="DKI Jakarta"/>
+
+            <TextView
+                android:id="@+id/first_confirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                tools:text="185095"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_second"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_first"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/second_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                tools:text="DKI Jakarta"/>
+
+            <TextView
+                android:id="@+id/second_confirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textSize="30sp"
+                tools:text="185095"/>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/top_three"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/top_second"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="20dp"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <TextView
+                android:id="@+id/third_province"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="8dp"
+                android:textSize="16sp"
+                tools:text="DKI Jakarta" />
+
+            <TextView
+                android:id="@+id/third_confirmed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                tools:text="185095" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

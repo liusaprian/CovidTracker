@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Covid Tracker</string>
+    <string name="indonesia">Indonesia</string>
+    <string name="total_confirmed">Total Positive</string>
+    <string name="total_recovered">Total Recovered</string>
+    <string name="total_death">Total Death</string>
+    <string name="confirmed_cases">Confirmed Cases</string>
+    <string name="last_updated">Last Updated on %1$s</string>
+    <string name="see_all">See All</string>
+    <string name="search_hint">Search province…</string>
+    <string name="confirmed">Positive</string>
+    <string name="death">Death</string>
+    <string name="recovered">Recovered</string>
+    <string name="search">Search</string>
+    <string name="empty_result">No province match the keyword</string>
+    <string name="list_activity_title">Provinces List</string>
+</resources>
