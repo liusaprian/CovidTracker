@@ -1,13 +1,12 @@
 package com.liusaprian.covidtracker.activity
 
 import android.app.SearchManager
-import android.content.Intent
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.liusaprian.covidtracker.activity.MainActivity.Companion.EXTRA_DATA
 import com.liusaprian.covidtracker.R
@@ -34,47 +33,35 @@ class ListActivity : AppCompatActivity() {
 
         setRecyclerViewData(provinceCovidDataList)
 
-        handleIntent(intent)
-
         supportActionBar?.elevation = 0f
         supportActionBar?.title = getString(R.string.list_activity_title)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-    override fun onNewIntent(intent: Intent) {
-        setIntent(intent)
-        handleIntent(intent)
-        super.onNewIntent(intent)
-    }
-
-    private fun handleIntent(intent: Intent) {
-        if (Intent.ACTION_SEARCH == intent.action) {
-            intent.getStringExtra(SearchManager.QUERY)?.also { query ->
-                showLoading(true)
-                searchProvince(query)
-                showLoading(false)
-            }
-        }
-    }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        val inflater = menuInflater
-        inflater.inflate(R.menu.options_menu, menu)
-        return true
-    }
+        menuInflater.inflate(R.menu.options_menu, menu)
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            R.id.search -> {
-                super.onSearchRequested()
+        val searchManager = getSystemService(Context.SEARCH_SERVICE) as SearchManager
+        val searchView = menu.findItem(R.id.search).actionView as SearchView
+
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(componentName))
+
+        searchView.queryHint = getString(R.string.search_hint)
+        searchView.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
+            override fun onQueryTextSubmit(query: String) = true
+
+            override fun onQueryTextChange(query: String): Boolean {
+                if(query.isEmpty()) setRecyclerViewData(provinceCovidDataList)
+                else {
+                    showLoading(true)
+                    searchProvince(query)
+                    showLoading(false)
+                }
                 return true
             }
-            android.R.id.home -> {
-                onBackPressed()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(item)
+
+        })
+        return true
     }
 
     private fun searchProvince(query: String) {
@@ -83,7 +70,6 @@ class ListActivity : AppCompatActivity() {
             for(provinceCovidData in provinceCovidDataList)
                 if (provinceCovidData.provinceName?.toLowerCase(Locale.ROOT)?.contains(query.toLowerCase(Locale.ROOT)) == true)
                     searchMatchData.add(provinceCovidData)
-            if(searchMatchData.isEmpty()) Toast.makeText(this, getString(R.string.empty_result), Toast.LENGTH_LONG).show()
             setRecyclerViewData(searchMatchData)
         }
     }
