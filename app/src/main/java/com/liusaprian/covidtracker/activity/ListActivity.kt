@@ -1,5 +1,6 @@
 package com.liusaprian.covidtracker.activity
 
+import android.annotation.SuppressLint
 import android.app.SearchManager
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
@@ -13,6 +14,7 @@ import com.liusaprian.covidtracker.R
 import com.liusaprian.covidtracker.adapter.ProvinceAdapter
 import com.liusaprian.covidtracker.databinding.ActivityListBinding
 import com.liusaprian.covidtracker.entity.ProvinceCovidCase
+import com.liusaprian.covidtracker.entity.ResponseData
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -20,14 +22,14 @@ class ListActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityListBinding
     private lateinit var provinceDataAdapter: ProvinceAdapter
-    private var provinceCovidDataList = ArrayList<ProvinceCovidCase>()
+    private var provinceCovidDataList = ArrayList<ResponseData>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        intent.getParcelableArrayListExtra<ProvinceCovidCase>(EXTRA_DATA)?.let {
+        intent.getParcelableArrayListExtra<ResponseData>(EXTRA_DATA)?.let {
             provinceCovidDataList = it
         }
 
@@ -66,15 +68,16 @@ class ListActivity : AppCompatActivity() {
 
     private fun searchProvince(query: String) {
         if(query.isNotEmpty()) {
-            val searchMatchData = ArrayList<ProvinceCovidCase>()
+            val searchMatchData = ArrayList<ResponseData>()
             for(provinceCovidData in provinceCovidDataList)
-                if (provinceCovidData.provinceName?.toLowerCase(Locale.ROOT)?.contains(query.toLowerCase(Locale.ROOT)) == true)
+                if (provinceCovidData.provinceCovidCase.provinsi.lowercase(Locale.ROOT).contains(query.lowercase(Locale.ROOT)))
                     searchMatchData.add(provinceCovidData)
             setRecyclerViewData(searchMatchData)
         }
     }
 
-    private fun setRecyclerViewData(data: ArrayList<ProvinceCovidCase>) {
+    @SuppressLint("NotifyDataSetChanged")
+    private fun setRecyclerViewData(data: ArrayList<ResponseData>) {
         provinceDataAdapter = ProvinceAdapter(data)
         provinceDataAdapter.notifyDataSetChanged()
 

@@ -7,14 +7,14 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("api")
-    suspend fun getIndonesiaCaseOverview() : IndonesiaCovidOverview
+    @GET(".")
+    suspend fun getIndonesiaCaseOverview() : List<IndonesiaCovidOverview>
 
-    @GET("api/provinsi")
-    suspend fun getAllProvinceCase() : ResponseData
+    @GET("provinsi")
+    suspend fun getAllProvinceCase() : ArrayList<ResponseData>
 }
 
-private const val BASE_URL = "https://indonesia-covid-19.mathdro.id/"
+private const val BASE_URL = "https://api.kawalcorona.com/indonesia/"
 
 val myApi: ApiService by lazy {
     Retrofit.Builder()

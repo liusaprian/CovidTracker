@@ -7,16 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.liusaprian.covidtracker.R
 import com.liusaprian.covidtracker.databinding.ProvinceDataBinding
 import com.liusaprian.covidtracker.entity.ProvinceCovidCase
+import com.liusaprian.covidtracker.entity.ResponseData
 
-class ProvinceAdapter(private val data: ArrayList<ProvinceCovidCase>) : RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder>() {
+class ProvinceAdapter(private val data: ArrayList<ResponseData>) : RecyclerView.Adapter<ProvinceAdapter.ProvinceViewHolder>() {
 
     class ProvinceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val binding = ProvinceDataBinding.bind(itemView)
         fun bind(data: ProvinceCovidCase) {
-            binding.provinceName.text = data.provinceName
-            binding.provinceConfirmed.text = data.positiveCase.toString()
-            binding.provinceDeath.text = data.deathCase.toString()
-            binding.provinceRecovered.text = data.recoveredCase.toString()
+            binding.provinceName.text = data.provinsi
+            binding.provinceConfirmed.text = data.kasusPosi.toString()
+            binding.provinceDeath.text = data.kasusMeni.toString()
+            binding.provinceRecovered.text = data.kasusSemb.toString()
         }
     }
 
@@ -26,7 +27,7 @@ class ProvinceAdapter(private val data: ArrayList<ProvinceCovidCase>) : Recycler
     }
 
     override fun onBindViewHolder(holder: ProvinceViewHolder, position: Int) {
-        holder.bind(data[position])
+        holder.bind(data[position].provinceCovidCase)
     }
 
     override fun getItemCount() = data.size

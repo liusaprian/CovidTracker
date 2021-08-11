@@ -8,7 +8,7 @@ import android.view.View
 import androidx.lifecycle.ViewModelProvider
 import com.liusaprian.covidtracker.R
 import com.liusaprian.covidtracker.databinding.ActivityMainBinding
-import com.liusaprian.covidtracker.entity.ProvinceCovidCase
+import com.liusaprian.covidtracker.entity.ResponseData
 import com.liusaprian.covidtracker.viewmodel.MainViewModel
 import com.liusaprian.covidtracker.viewmodel.ProvinceDataViewModel
 import java.util.*
@@ -18,7 +18,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     private lateinit var mainViewModel: MainViewModel
     private lateinit var provinceDataViewModel: ProvinceDataViewModel
-    private var provinceCaseData = ArrayList<ProvinceCovidCase>()
+    private var provinceCaseData = ArrayList<ResponseData>()
     private var load = false
 
     companion object {
@@ -48,11 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         mainViewModel.getData().observe(this, {
             if (it != null) {
-                binding.confirmedCase.text = it.caseCount.toString()
-                binding.deathCase.text = it.death.toString()
-                binding.recoveryCase.text = it.recovered.toString()
-                binding.lastUpdated.text = getString(R.string.last_updated,
-                    it.lastUpdate?.let { stringTime -> convertTimestamp(stringTime.toLong()) }
+                binding.confirmedCase.text = it.caseCount
+                binding.deathCase.text = it.death
+                binding.recoveryCase.text = it.recovered
+                binding.lastUpdated.text = getString(
+                    R.string.last_updated,
+                    getCurrentDate()
                 )
             }
         })
@@ -60,16 +61,16 @@ class MainActivity : AppCompatActivity() {
         provinceDataViewModel.getData().observe(this, {
             if(it != null) {
                 provinceCaseData = it
-                provinceCaseData.removeAt(provinceCaseData.lastIndex)
+//                provinceCaseData.removeAt(provinceCaseData.lastIndex)
 
-                binding.firstProvince.text = it[0].provinceName
-                binding.firstConfirmed.text = it[0].positiveCase.toString()
+                binding.firstProvince.text = it[0].provinceCovidCase.provinsi
+                binding.firstConfirmed.text = it[0].provinceCovidCase.kasusPosi.toString()
 
-                binding.secondProvince.text = it[1].provinceName
-                binding.secondConfirmed.text = it[1].positiveCase.toString()
+                binding.secondProvince.text = it[1].provinceCovidCase.provinsi
+                binding.secondConfirmed.text = it[1].provinceCovidCase.kasusPosi.toString()
 
-                binding.thirdProvince.text = it[2].provinceName
-                binding.thirdConfirmed.text = it[2].positiveCase.toString()
+                binding.thirdProvince.text = it[2].provinceCovidCase.provinsi
+                binding.thirdConfirmed.text = it[2].provinceCovidCase.kasusPosi.toString()
             }
             showLoading(false)
         })
@@ -93,9 +94,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun convertTimestamp(timeStamp: Long) : String {
+    private fun getCurrentDate() : String {
         val calendar = Calendar.getInstance(Locale.ENGLISH)
-        calendar.timeInMillis = timeStamp
+        calendar.timeInMillis = System.currentTimeMillis()
         return DateFormat.format("dd-MM-yyyy", calendar).toString()
     }
 }

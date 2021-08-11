@@ -21,7 +21,7 @@ class MainViewModel : ViewModel() {
             val result = withContext(Dispatchers.IO) {
                 repository.getIndonesiaCovidCaseOverview()
             }
-            indonesiaCovidCaseOverview.postValue(result)
+            indonesiaCovidCaseOverview.postValue(result[0])
         }
     }
 
